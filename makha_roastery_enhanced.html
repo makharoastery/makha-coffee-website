@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محمصة مخا - قريبًا</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', 'Amiri', serif;
+            background: linear-gradient(135deg, #f8f1e5 0%, #e8e0d5 50%, #d8d0c5 100%);
+            color: #3a1c00;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+            background-attachment: fixed;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* خلفية السفينة */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("enhanced_ship_background.png");
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: -1;
+            animation: none;
+        }
+        
+        @keyframes floatPattern {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            padding: 50px 30px;
+            background: rgba(245, 241, 235, 0.9);
+            border-radius: 25px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(139, 90, 60, 0.1),
+                inset 0 1px 0 rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(139, 90, 60, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(139, 90, 60, 0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .logo-container {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 40px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(145deg, rgba(139, 90, 60, 0.2), rgba(107, 62, 42, 0.3));
+            border-radius: 50%;
+            border: 3px solid rgba(139, 90, 60, 0.4);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.3),
+                inset 0 5px 15px rgba(245, 241, 235, 0.1);
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes logoGlow {
+            from { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), inset 0 5px 15px rgba(245, 241, 235, 0.1), 0 0 20px rgba(139, 90, 60, 0.3); }
+            to { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), inset 0 5px 15px rgba(245, 241, 235, 0.1), 0 0 40px rgba(139, 90, 60, 0.5); }
+        }
+        
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+        }
+        
+        h1 {
+            font-family: 'Amiri', serif;
+            font-size: 4rem;
+            margin-bottom: 25px;
+            color: #3a1c00;
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.2),
+                0 0 20px rgba(139, 90, 60, 0.1);
+            font-weight: 700;
+            letter-spacing: 2px;
+            position: relative;
+        }
+        
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #8b5a3c, transparent);
+            border-radius: 2px;
+        }
+        
+        .coming-soon {
+            font-size: 2.5rem;
+            margin: 40px 0;
+            color: #3a1c00;
+            position: relative;
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(145deg, rgba(139, 90, 60, 0.1), rgba(107, 62, 42, 0.15));
+            border-radius: 50px;
+            border: 2px solid rgba(139, 90, 60, 0.15);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .coming-soon::before, .coming-soon::after {
+            content: "✦";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8b5a3c;
+            font-size: 1.5rem;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        
+        .coming-soon::before {
+            right: 100%;
+            margin-right: 20px;
+        }
+        
+        .coming-soon::after {
+            left: 100%;
+            margin-left: 20px;
+            animation-delay: 1s;
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.5; transform: translateY(-50%) scale(1); }
+            50% { opacity: 1; transform: translateY(-50%) scale(1.2); }
+        }
+        
+        .story {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px;
+            background: linear-gradient(145deg, rgba(245, 241, 235, 0.8), rgba(232, 224, 213, 0.6));
+            border-radius: 20px;
+            border: 2px solid rgba(139, 90, 60, 0.15);
+            text-align: right;
+            line-height: 2;
+            font-size: 1.3rem;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .story::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #8b5a3c, #d4af8c, #8b5a3c);
+            border-radius: 0 20px 20px 0;
+        }
+        
+        .story h2 {
+            color: #d4af8c;
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+            font-family: 'Amiri', serif;
+            border-bottom: 2px solid #8b5a3c;
+            padding-bottom: 15px;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .story h2::after {
+            content: "⚓";
+            position: absolute;
+            left: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8b5a3c;
+            font-size: 1.5rem;
+        }
+        
+        .coffee-beans {
+            margin: 40px auto;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .coffee-bean {
+            width: 25px;
+            height: 20px;
+            background: linear-gradient(145deg, #a67c52, #8b5a3c);
+            border-radius: 50%;
+            position: relative;
+            transform: rotate(-30deg);
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.1),
+                inset 0 2px 5px rgba(139, 90, 60, 0.1);
+            animation: beanFloat 3s ease-in-out infinite;
+        }
+        
+        .coffee-bean:nth-child(1) { animation-delay: 0s; }
+        .coffee-bean:nth-child(2) { animation-delay: 0.5s; }
+        .coffee-bean:nth-child(3) { animation-delay: 1s; }
+        .coffee-bean:nth-child(4) { animation-delay: 1.5s; }
+        .coffee-bean:nth-child(5) { animation-delay: 2s; }
+        
+        @keyframes beanFloat {
+            0%, 100% { transform: rotate(-30deg) translateY(0px); }
+            50% { transform: rotate(-30deg) translateY(-15px); }
+        }
+        
+        .coffee-bean::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 2px;
+            height: 70%;
+            background: rgba(139, 90, 60, 0.6);
+            border-radius: 1px;
+        }
+        
+        .contact-info {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 18px 30px;
+            background: linear-gradient(145deg, rgba(245, 241, 235, 0.8), rgba(232, 224, 213, 0.6));
+            border-radius: 50px;
+            margin: 0 auto;
+            max-width: 450px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid rgba(139, 90, 60, 0.15);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 90, 60, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .contact-item:hover::before {
+            left: 100%;
+        }
+        
+        .contact-item:hover {
+            background: linear-gradient(145deg, rgba(139, 90, 60, 0.3), rgba(107, 62, 42, 0.4));
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .contact-item a {
+            color: #d4af8c;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .contact-item a:hover {
+            color: #f5f1eb;
+        }
+        
+        .contact-item i {
+            font-size: 1.5rem;
+            width: 30px;
+            text-align: center;
+        }
+        
+        .social-icons {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .social-icons a {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, rgba(245, 241, 235, 0.8), rgba(232, 224, 213, 0.6));
+            color: #3a1c00;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 24px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid rgba(139, 90, 60, 0.15);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social-icons a::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(139, 90, 60, 0.3);
+            border-radius: 50%;
+            transition: all 0.4s ease;
+            transform: translate(-50%, -50%);
+        }
+        
+        .social-icons a:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .social-icons a:hover {
+            color: #f5f1eb;
+            transform: translateY(-8px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .email {
+            margin-top: 30px;
+            font-size: 1.2rem;
+            color: #3a1c00;
+            padding: 15px 25px;
+            background: linear-gradient(145deg, rgba(245, 241, 235, 0.8), rgba(232, 224, 213, 0.6));
+            border-radius: 25px;
+            border: 1px solid rgba(139, 90, 60, 0.15);
+            display: inline-block;
+        }
+        
+        /* تأثيرات الجسيمات */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(139, 90, 60, 0.3);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .coming-soon {
+                font-size: 2rem;
+                padding: 12px 25px;
+            }
+            
+            .logo-container {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .logo-container img {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .story {
+                font-size: 1.1rem;
+                padding: 25px;
+                margin: 30px auto;
+            }
+            
+            .story h2 {
+                font-size: 1.8rem;
+            }
+            
+            .coffee-beans {
+                gap: 20px;
+            }
+            
+            .coffee-bean {
+                width: 22px;
+                height: 18px;
+            }
+            
+            .contact-item {
+                flex-direction: column;
+                gap: 12px;
+                padding: 20px;
+                max-width: 300px;
+            }
+            
+            .social-icons a {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .coming-soon {
+                font-size: 1.6rem;
+                padding: 10px 20px;
+            }
+            
+            .story {
+                font-size: 1rem;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="logo-container">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="محمصة مخا" id="logo-img">
+        </div>
+        
+        <h1>محمصة مخا</h1>
+        
+        <div class="coffee-beans">
+            <div class="coffee-bean"></div>
+            <div class="coffee-bean"></div>
+            <div class="coffee-bean"></div>
+            <div class="coffee-bean"></div>
+            <div class="coffee-bean"></div>
+        </div>
+        
+        <div class="coming-soon">ترقبونا قريبًا</div>
+        
+        <div class="story">
+            <h2>قصتنا</h2>
+            <p>من رحيق تاريخ منطقة المخا العريق، ومن ميناء المخا الأسطوري، حيث كانت تبحر السفن محملة بأغلى كنوز الأرض، نقدم لكم قهوتكم. كل رشفة هي رحلة عبر الزمن، تحمل عبق الماضي وروعة الأصالة. محمصة مخا... حيث تبدأ الأسطورة.</p>
+        </div>
+        
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fab fa-whatsapp"></i>
+                <a href="https://wa.me/965580365388" target="_blank">0580365388</a>
+            </div>
+            
+            <div class="contact-item">
+                <i class="fab fa-instagram"></i>
+                <a href="https://www.instagram.com/makharoastery/" target="_blank">makharoastery</a>
+            </div>
+            
+            <div class="contact-item">
+                <i class="fab fa-tiktok"></i>
+                <a href="https://www.tiktok.com/@pouuv" target="_blank">TikTok</a>
+            </div>
+        </div>
+        
+        <div class="email">
+            <p>makharoastery@gmail.com</p>
+        </div>
+        
+
+    </div>
+
+    <script>
+        // تحميل الشعار
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoImg = document.getElementById('logo-img');
+            logoImg.src = 'logo_enhanced_quality.png';
+            
+            // تأثير ظهور تدريجي للعناصر
+            const elements = document.querySelectorAll('.container > *');
+            elements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+            
+            // إنشاء الجسيمات المتحركة
+            createParticles();
+            
+            // تأثير تمايل حبات البن
+            const beans = document.querySelectorAll('.coffee-bean');
+            beans.forEach((bean, index) => {
+                bean.style.animationDelay = `${index * 0.5}s`;
+            });
+        });
+        
+        // إنشاء الجسيمات
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // تأثير المتابعة للماوس
+        document.addEventListener('mousemove', function(e) {
+            const container = document.querySelector('.container');
+            const rect = container.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / centerY * 5;
+            const rotateY = (centerX - x) / centerX * 5;
+            
+            container.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        
+        document.addEventListener('mouseleave', function() {
+            const container = document.querySelector('.container');
+            container.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+        });
+    </script>
+</body>
+</html>
+
